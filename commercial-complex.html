@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commercials - Paradigm Architects</title>
+ <link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+<style>
+body {
+  font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
+  margin:0;
+  padding:0;
+  background:#f9f9f9;
+  color:#000; /* black text */
+}
+header {
+  background:#ffffff; /* white header */
+  padding:20px;
+  color:#000; /* black text */
+  text-align:center;
+  border-bottom: 1px solid #ccc;
+}
+header h1 { margin:0; font-size:2rem; }
+.back-btn {
+  display:inline-block;
+  margin:20px;
+  padding:10px 20px;
+  background:#ffffff; /* white button */
+  color:#000; /* black text */
+  border: 1px solid #000;
+  border-radius:0;
+  text-decoration:none;
+  transition:0.3s;
+}
+.back-btn:hover { background:#f0f0f0; }
+
+/* Masonry grid */
+.collage-grid {
+  column-count: 3; /* Number of columns, adjust for responsiveness */
+  column-gap: 10px;   /* No gap between images */
+}
+
+.collage-grid img {
+  width: 100%;
+  display: block;
+  margin: 0;          /* Remove default spacing */
+  padding: 0;         /* Remove default spacing */
+  border-radius: 0;   /* Sharp corners */
+  break-inside: avoid; /* Prevent image breaking across columns */
+}
+
+/* Responsive */
+@media (max-width: 1200px) { .collage-grid { column-count: 3; } }
+@media (max-width: 900px)  { .collage-grid { column-count: 2; } }
+@media (max-width: 600px)  { .collage-grid { column-count: 1; } }
+.collage-grid img:hover {
+  transform: scale(1.03);
+}
+
+/* Lightbox */
+#lightbox {
+  display: none;
+  position: fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+}
+#lightbox .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: white; /* keep cross visible */
+  cursor: pointer;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Commercials</h1>
+</header>
+
+<a href="index.html#projects" class="back-btn">← Back to Catalogue</a>
+<div class="collage-grid">
+   <img src="images\commer\1.jpg" style="--span:35">
+    <img src="images\commer\3.jpg" style="--span:35">
+  <img src="images\commer\2.jpg" style="--span:30">
+  <img src="images\commer\4.jpg" style="--span:30">
+  <img src="images\commer\5.jpg" style="--span:25">
+  <img src="images\commer\6.jpg" style="--span:30">
+  <img src="images\commer\7.jpg" style="--span:40">
+  <img src="images\commer\8.jpg" style="--span:28">
+  <img src="images\commer\9.jpg" style="--span:32">
+  <img src="images\commer\10.jpg" style="--span:27">
+ 
+  <img src="images\commer\11.jpg" style="--span:28">
+  <img src="images\commer\12.jpg" style="--span:32">
+  <img src="images\commer\13.jpg" style="--span:27">
+  <img src="images\commer\14.jpg" style="--span:35">
+  <img src="images\commer\15.jpg" style="--span:30">
+  <img src="images\commer\16.jpg" style="--span:35">
+  <img src="images\commer\17.jpg" style="--span:30">
+   <img src="images\commer\18.jpg" style="--span:30">
+  <img src="images\commer\19.jpg" style="--span:35">
+  <img src="images\commer\20.jpg" style="--span:30">
+  <img src="images\commer\21.jpg" style="--span:28">
+  <img src="images\commer\22.jpg" style="--span:32">
+  <img src="images\commer\23.jpg" style="--span:27">
+  <img src="images\commer\24.jpg" style="--span:35">
+  <img src="images\commer\25.jpg" style="--span:30">
+  <img src="images\commer\26.jpg" style="--span:35">
+  <img src="images\commer\27.jpg" style="--span:30">
+   <img src="images\commer\28.jpg" style="--span:30">
+  <img src="images\commer\29.jpg" style="--span:35">
+ 
+</div>
+
+<!-- Lightbox modal -->
+<div id="lightbox">
+  <span class="close">&times;</span>
+  <img src="" alt="Large Image">
+</div>
+
+<script>
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+const closeBtn = lightbox.querySelector('.close');
+const images = document.querySelectorAll('.collage-grid img');
+
+images.forEach(img => {
+  img.addEventListener('click', () => {
+    lightbox.style.display = 'flex';
+    lightboxImg.src = img.src;
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
+
+lightbox.addEventListener('click', e => {
+  if(e.target === lightbox) lightbox.style.display = 'none';
+});
+</script>
+
+</body>
+</html>

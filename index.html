@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paradigm Architects</title>
+  <link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* Reset & base */
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#333; line-height:1.6; scroll-behavior:smooth; background:#f9f9f9; }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
+    img { max-width:100%; display:block; }
+
+
+
+    /* Header / Nav */
+    header { position:fixed; width:100%; top:0; left:0; background:rgba(255, 255, 255, 0.685); box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:1000; }
+    .nav-container { max-width:1200px; margin:auto; padding:5px; display:flex; align-items:center; justify-content:space-between; }
+    .logo {
+  display: flex;
+  align-items:center;
+  justify-content: left;
+  gap: 10px; /* space between logo and text */
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-logo {
+  height: 58px; /* adjust size as needed */
+  width: auto;
+  
+}
+    nav ul { display:flex; gap:20px; font-size:1rem ; font-weight: bold; }
+    nav li a { padding:8px 12px; transition:background 0.3s; }
+    nav li a:hover { background:#f0f0f0; border-radius:4px; }
+
+    /* Hamburger for mobile */
+    .nav-toggle { display:none; font-size:1.5rem; cursor:pointer; background:none; border:none; }
+    @media (max-width:768px) {
+      nav ul { flex-direction:column; position:absolute; top:100%; right:0; background:white; width:200px; display:none; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+      nav ul.active { display:flex; }
+      .nav-toggle { display:block; }
+    }
+
+   .hero {
+  margin-top: 70px; /* navbar ke neeche space */
+  width: 100%;
+  height: 100vh; /* desktop/laptop pe poori screen ki height */
+  max-height: 900px; /* optional: zyada bada na ho */
+  overflow: hidden;
+  aspect-ratio: 16/9;
+
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* pura image dikhega, crop nahi hoga */
+  object-position: center;
+}
+
+
+
+
+    .hero-slider { position:absolute; width:100%; height:100%; top:0; left:0; }
+    .hero-slider .slide { position:absolute; width:100%; height:100%; background-size:cover; background-position:center; opacity:0; transition:opacity 1s; }
+    .hero-slider .slide.active { opacity:1; z-index:-1; }
+    .hero-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.4); }
+    .hero-content { position:relative; max-width:800px; margin:auto; top:50%; transform:translateY(-50%); text-align:center; color:#fff; padding:0 20px; }
+    .hero-content h1 { font-size:3rem; margin-bottom:20px; }
+    .hero-content p { font-size:1.2rem; margin-bottom:30px; }
+    .btn-primary { padding:12px 24px; background:#007BFF; color:white; border:none; border-radius:4px; font-size:1rem; cursor:pointer; transition:background 0.3s; }
+    .btn-primary:hover { background:#0056b3; }
+
+    /* Sections */
+    .section { max-width:1200px; margin:10px auto; padding:0 20px; opacity:0; transform:translateY(20px); transition:all 0.8s ease-out; }
+    .section.show { opacity:1; transform:translateY(0); }
+    .section-title { text-align:center; font-size:2rem; margin-bottom:40px; position:relative; }
+    .section-title::after { content:''; width:60px; height:3px; background:#007BFF; display:block; margin:12px auto 0; }
+
+    /* Catalogue / Projects */
+     #projects {padding-top: 90px;}
+    .projects-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:20px; }
+    .project-card { overflow:hidden; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:transform 0.3s; position:relative; cursor:pointer; }
+    .project-card:hover { transform:translateY(-5px); }
+    .project-card img { height:200px; object-fit:cover; width:100%; }
+    .project-card .card-content { padding:20px; background:white; text-align:center; }
+    .project-card .card-content h3 { font-size:1.3rem; color:#007BFF; }
+   /* Make link behave like grid item */
+.horizontal-link {
+  display: block;
+  grid-column: 1 / -1; /* spans all columns */
+  text-decoration: none; /* remove underline */
+}
+
+.horizontal-box {
+  height: 400px;       /* same height as other boxes */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center ;
+  align-items: center;
+}
+
+.horizontal-box .horizontal-bg {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.horizontal-box .horizontal-content {
+  text-align: center;
+  top: 15px;
+  left: 50%;
+  color: #ffe203;
+  z-index: 1;
+  position: absolute;
+}
+
+.horizontal-box h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  bottom: 10px;
+  position: absolute;
+  color: #fff;
+ 
+
+}
+
+.horizontal-box h3 {
+ font-size: 2.5rem;
+  margin-bottom: 10px;
+  top: 10px;
+  position: absolute;
+  color: #fff;
+ 
+
+}
+/* Horizontal VR box */
+
+
+
+
+
+
+
+
+    /* Services */
+     #services {padding-top: 90px;}
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px; }
+    .service-box { background:#f8f8f8; border-radius:8px; padding:30px 20px; text-align:center; transition:background 0.3s, transform 0.3s; }
+    .service-box:hover { background:#eaeaea; transform:translateY(-5px); }
+    .service-box h4 { margin-bottom:15px; font-size:1.2rem; }
+    .service-box p { color:#555; font-size:1rem; }
+    .service-box i { font-size:2rem; margin-bottom:10px; color:#007BFF; }
+
+    /* About */
+    #about {padding-top: 90px;}
+    .about-content { display:flex; flex-wrap:wrap; align-items:center; gap:70px;   }
+    .about-image, .about-text { flex:1; min-width:150px; max-width: 500px; }
+    .about-text {
+  font-size: 1.15rem;   /* increases base text size */
+  line-height: 1.8;    /* makes it more readable */
+}
+
+.about-text h3 {
+  font-size: 1.6rem;   /* heading size */
+  margin-bottom: 15px;
+}
+
+.about-text ul li {
+  font-size: 1.05rem;  /* list items */
+  margin-bottom: 8px;
+}
+/* Team Section */
+#team {
+  padding: 60px 20px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+#team .section-title {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.team-container {
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  gap:100px;               /* Equal spacing between members */
+  flex-wrap: wrap;         /* Stack on smaller screens */
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* Center content horizontally */
+  width: 400px;
+}
+
+.team-member img {
+  width: 300px;             /* Fixed size for all images */
+  height: 300px;
+  border-radius: 100%;       /* Make image circular */
+  object-fit: cover;        /* Ensure image fits inside circle */
+  margin-bottom: 15px;
+}
+
+.team-member h3 {
+  margin: 10px 0 5px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.team-member p {
+  font-size: 1.1rem;
+  color: #777;
+  margin: 0;
+}
+/* Testimonials Section */
+#testimonials {
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #f9f9f9, #ffffff);
+  text-align: center;
+}
+
+#testimonials .section-title {
+  font-size: 2rem;
+  margin-bottom: 50px;
+  font-weight: bold;
+  color: #222;
+}
+
+.testimonials-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.testimonial {
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  width: 300px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.testimonial p {
+  font-style: italic;
+  font-size: 1rem;
+  color: #555;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.testimonial h4 {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #111;
+}
+
+.stars {
+  color: #f5b50a; /* gold stars */
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+
+    /* Contact */
+     #contact {padding-top: 90px;}
+    .contact-form { max-width:500px; margin:auto; display:flex; flex-direction:column;  }
+    .contact-form input, .contact-form textarea { padding:12px; border:1px solid #ccc; border-radius:4px; font-size:1rem; }
+    .contact-form button { width:150px; padding:0px; background:#007BFF; color:#fff; border:none; border-radius:4px; cursor:pointer; }
+    .contact-form button:hover { background:#0056b3; }
+    #contact {
+
+  background: #f5f5f5;
+  text-align: center;
+}
+#ques {
+  text-align: center;
+ font-weight: normal;
+}
+
+#contact h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #000;
+}
+
+.contact-form {
+  max-width: 400px;
+  margin: auto
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items:right;
+ 
+}
+
+.contact-form input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.contact-form input:focus {
+  border-color: #000;
+}
+#whatsappForm {
+  align-items: right;
+  align-content: right;
+ right: 100px;
+}
+
+.contact-form button {
+  padding: 12px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+  background: #333;
+}
+
+.address-section {
+  margin: 30px;
+}
+
+
+    /* Footer */
+    footer { background:#222; color:#aaa; padding:20px 10px; text-align:center; }
+    footer a { color:#aaa; margin:0 5px; font-size:1.2rem; }
+    footer .socials { margin-top:0px; }
+    footer p {font-size: .85rem;}
+    /* Hide default scrollbar (works on Chrome, Edge, Safari) */
+/* ===== Custom Scrollbar ===== */
+
+/* For Webkit Browsers (Chrome, Safari, Edge) */
+
+
+
+/* Mobile / Tablet adjustments */
+@media (max-width: 1200px) {
+  #hero {
+    height: 80vh; /* slightly smaller height for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  #hero {
+    height: auto;          /* height adjusts according to width */
+  }
+  #hero img {
+    height: auto;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.6rem;
+  }
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .catalogue-box.wide .box-text {
+    font-size: 1.4rem;
+    padding: 8px 12px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <div class="logo">
+      <img src="images/logo/5.jpg" alt="Paradigm Architects Logo" class="nav-logo">
+      <span>𝐏𝐀𝐑𝐀𝐃𝐈𝐆𝐌 𝐀𝐑𝐂𝐇𝐈𝐓𝐄𝐂𝐓𝐒</span>
+    </div>
+    <button class="nav-toggle">☰</button>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#projects">Catalogue</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Slider -->
+<section class="hero" id="home">
+  <div class="hero-slider">
+   <div class="slide active" style="background-image: url('images/modern/2.jpg');"></div>
+    <div class="slide" style="background-image: url('images/modern/1.jpg');"></div>
+  <div class="slide" style="background-image: url('images/ss/3.jpg');"></div>
+   
+   <div class="slide" style="background-image: url('images/ss/4.jpg');"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Where Creativity Meets Structure</h1>
+    <p>Paradigm Architects crafts architectural stories rooted in context, innovation and sustainability.</p>
+    <button class="btn-primary" onclick="scrollToSection('projects')">Our Work</button>
+  </div>
+</section>
+
+<!-- Catalogue -->
+<section class="section" id="projects">
+  <h2 class="section-title">Catalogue</h2>
+  <div class="projects-grid">
+    <div class="project-card" onclick="window.location='classical-villa.html'">
+      <img src="images\classical\1D.jpg" alt="Classical Villa">
+      <div class="card-content"><h3>Classical Villa</h3></div>
+    </div>
+    <div class="project-card" onclick="window.location='modern-exterior.html'">
+      <img src="images\modern\1.jpg" alt="Modern Exterior">
+      <div class="card-content"><h3>Modern Exterior</h3></div>
+    </div>
+    <div class="project-card" onclick="window.location='farm-houses.html'">
+      <img src="images\farm\3.jpg" alt="Farm Houses">
+      <div class="card-content"><h3>Farm Houses</h3></div>
+    </div>
+    <div class="project-card" onclick="window.location='interior.html'">
+      <img src="images/interior/17.JPG" alt="Interior">
+      <div class="card-content"><h3>Interior</h3></div>
+    </div>
+    <div class="project-card" onclick="window.location='townships.html'">
+      <img src="images/township/8.jpg" alt="Townships">
+      <div class="card-content"><h3>Townships</h3></div>
+    </div>
+    <div class="project-card" onclick="window.location='commercial-complex.html'">
+      <img src="images/commer/21.jpg" alt="Commercial Complex">
+      <div class="card-content"><h3>Commercials</h3></div>
+    </div>
+   <!-- New horizontal box with background image -->
+<a href="vr-visualization.html" class="horizontal-link">
+  <div class="project-card horizontal-box">
+    <img src="images/vr/2.jpg" alt="VR" class="horizontal-bg">
+    <h2>Click Here <i class="fa-solid fa-hand-point-up " style="color: #ffffff;"></i></h2>
+    <H3>Experience VR with Us</H3>
+   
+    
+  </div>
+</a>
+</div>
+
+  </div>
+
+
+</section>
+
+<!-- Services -->
+<section class="section" id="services">
+  <h2 class="section-title">Services</h2>
+  <div class="services-grid">
+    <div class="service-box"><i class="fa-solid fa-building"></i><h4>Architectural Design</h4><p>Designing residences, offices, and public buildings with creativity and technical excellence.</p></div>
+    <div class="service-box"><i class="fa-solid fa-couch"></i><h4>Interior Design</h4><p>Functional and aesthetic interiors to match the vision and lifestyle of each client.</p></div>
+    <div class="service-box"><i class="fa-solid fa-city"></i><h4>Vastu Consultancy</h4><p>Vastu solutions for peace, prosperity, and perfect energy flow.</p></div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <h2 class="section-title">About Us</h2>
+  <div class="about-content">
+    
+    <div class="about-image"><img src="images\logo\4.jpg" alt="About Us"></div>
+    <div class="about-text">
+      <h3>WHO WE ARE</h3>
+      <p>Paradigm Architects, founded in 2015 in India, to facilitate the Design and building of environmentally sensitive architecture that respects and responds to existing site conditions.</p>
+      <BR>
+      <P>"Paradigm Architects is a visionary architecture firm dedicated to creating innovative, sustainable, and elegant designs. With a focus on quality, functionality, and client satisfaction, we bring ideas to life through meticulous planning and creative expertise. Trusted by clients for delivering exceptional projects on time and within budget."</P>
+     
+    </div>
+  </div>
+</section>
+<section id="team">
+  <h2 class="section-title">Our Team</h2>
+  <div class="team-container">
+    
+    <!-- Team Member 1 -->
+    <div class="team-member">
+      <img src="images/team/1.jpg" alt="Team Member 1">
+      <h3>Ar. Anant Garg</h3>
+      <p>(B.Arch, COA Approved)</p>
+    </div>
+    
+    <!-- Team Member 2 -->
+    <div class="team-member">
+      <img src="images/team/2.jpg" alt="Team Member 2">
+      <h3>Anshul Sukhija</h3>
+      <p>Junior Architect</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="testimonials">
+  <h2 class="section-title">What Our Clients Say</h2>
+  <div class="testimonials-container">
+    
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>“Paradigm Architects transformed our dream into reality. Their attention to detail is unmatched.”</p>
+      <h4>- Rahul Monga</h4>
+    </div>
+    
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>“Professional team with innovative ideas. Highly recommend their services!”</p>
+      <h4>- Priya Sharma</h4>
+    </div>
+    
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>“Best experience! They designed our farmhouse beautifully and within time.”</p>
+      <h4>- Arjun Singh</h4>
+    </div>
+    
+  </div>
+</section>
+
+
+<!-- Contact -->
+ <!-- Contact Section -->
+
+  
+  
+
+<section class="section" id="contact" style="padding-top: 90px;">
+  <h2 class="section-title">Contact Us</h2>
+<h2 id="ques">We are here to help you.</h2></div>
+  <div class="quess"><form class="contact-form"  id="whatsappForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="tel" id="phone" placeholder="Phone Number" required>
+    <input type="text" id="service" placeholder="Service You Need" required>
+    <button type="submit">Send</button>
+  </form></div>
+  
+ <p style="text-align:center; margin-top:30px;">
+  
+  Phone: <a href="tel:+911234567890">+91 84400 00847</a>
+</p>
+
+  <p style="text-align:center; margin-top:10px;">
+  
+    <a href="https://www.instagram.com/paradigm_architects_" target="_blank" style="text-decoration:none;">
+      <i class="fa-brands fa-instagram fa-xl"></i>
+    </a>&#160;
+    <a href="https://in.pinterest.com/paradigm_architects/" target="_blank" style="text-decoration:none;">
+     <i class="fa-brands fa-pinterest fa-xl"></i>
+    </a>&#160;
+    <a href="https://www.facebook.com/ParadigmArchitectz" target="_blank" style="text-decoration:none;">
+     <i class="fa-brands fa-facebook fa-xl"></i>
+    </a>&#160;
+    <a href="https://m.youtube.com/@paradigm_architects_" target="_blank" style="text-decoration:none;">
+     <i class="fa-brands fa-youtube fa-xl"></i>
+    </a>
+    
+ 
+
+  </p>
+  <section><div class="address-section">
+   <h2 class="section-title">Our Office</h2>
+    <a href="https://www.google.com/maps/place/Paradigm+Architects-+Best+Top+Architect,+Interior+Designer,+and+Vaastu+Consultant./@29.7959846,74.4599841,728m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3916e5cb654b75d5:0x61c17f33960de704!8m2!3d29.79598!4d74.462559!16s%2Fg%2F11knsp_yqd?entry=ttu&g_ep=EgoyMDI1MDkyOS4wIKXMDSoASAFQAw%3D%3D"><p>Paradigm Architects,<br>
+       Sangaria, New Grain Market,<br>
+       Near Main Bus Stand, Rajasthan, India</p></a>
+    
+    <!-- Google Map Embed -->
+    <iframe 
+      src="https://www.google.com/maps?q=Paradigm+Architects+Sangaria+New+Grain+Market+Near+Main+Bus+Stand&output=embed" 
+      width="100%" 
+      height="300" 
+      style="border:0; border-radius:10px; margin-top:10px;" 
+      allowfullscreen="" 
+      loading="lazy">
+    </iframe>
+  </div>
+  </section>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>©  2015-2025 Paradigm Architects - Architectural & Interior Design | All rights reserved</p>
+ <P> Designed by ANSHUL SUKHIJA</P>
+</footer>
+
+<script>
+  function scrollToSection(id) {
+    const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'});
+  }
+
+  // Hero Slider
+  let slides=document.querySelectorAll('.hero-slider .slide'); let currentSlide=0;
+  setInterval(()=>{ slides[currentSlide].classList.remove('active'); currentSlide=(currentSlide+1)%slides.length; slides[currentSlide].classList.add('active'); },3000);
+
+  // Hamburger menu
+  const navToggle=document.querySelector('.nav-toggle');
+  navToggle.addEventListener('click',()=>{ document.querySelector('nav ul').classList.toggle('active'); });
+
+  // Contact form
+  function submitContact(){
+    const name=document.getElementById('name').value.trim();
+    const email=document.getElementById('email').value.trim();
+    const message=document.getElementById('message').value.trim();
+    if(!name||!email||!message){ alert('All fields are required!'); return; }
+    alert(`Thanks ${name}! We received your message.`);
+  }
+  document.getElementById("whatsappForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let service = document.getElementById("service").value;
+
+  // Your WhatsApp number (with country code, without + or 0)
+  let whatsappNumber = "918440000847"; // Example: India number
+
+  let message = `Hello, my name is ${name}. My phone number is ${phone}. I need service: ${service}.`;
+
+  let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank").focus();
+});
+
+  // Scroll fade-in
+  const faders=document.querySelectorAll('.section');
+  window.addEventListener('scroll',()=>{
+    faders.forEach(section=>{ if(section.getBoundingClientRect().top<window.innerHeight-50) section.classList.add('show'); });
+  });
+</script>
+
+</body>
+</html>
